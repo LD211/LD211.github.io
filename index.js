@@ -1,7 +1,10 @@
 var introMessage = true;
 var wordbombTicker = false;
 var incorrect = false;
-var randomNumber = getRandomInteger(0,9);
+var randomNumber = getRandomInteger(0,2000);
+var prompt;
+var wordbombIntroprompt = true;
+var cache = "";
 function introduction(){
     const hello = "\r\n\u2588\u2588\u2557\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\r\n\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\nFor a list of commands, type 'commands'";
     const asciiArt = "For a list of commands, type 'commands'\n";
@@ -48,14 +51,46 @@ function userInput(){
         link.target = "_blank";
         link.innerHTML = "@untitled";
     }
-    else if(inputValue =="sphenopalatineganglioneuralgia"){
-        displayText = "holy shit! a based word bomb player, very impressive.";
+    else if(inputValue=="twitch"){
+        displayText = "my twitch account: ";
+        link.href = "https://twitch.tv/void";
+        link.target = "_blank";
+        link.innerHTML = "@void";
     }
-    else if(inputValue == "wordbomb"|| inputValue== "word bomb"){
-        console.log("i should not be here");
+    else if(inputValue == "monkeytype"){
+        displayText = "my monkeytype account: ";
+        link.href = "https://monkeytype.com/profile/ld_";
+        link.target = "_blank";
+        link.innerHTML = "@LD_";
+    }
+    else if(inputValue=="btc"){
+        var dataString = "";
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            dataString = JSON.stringify(data);
+            console.log(dataString);
+            slowText(dataString);
+        })
+        .catch(error => console.error(error));
+    }
+    else if(inputValue=="xrp"){
+        var dataString = "";
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            dataString = JSON.stringify(data);
+            console.log(dataString);
+            slowText(dataString);
+            console.log("hello");
+        })
+        .catch(error => console.error(error));
+
     }
     else if(inputValue=="commands"){
-        displayText = "'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb";
+        displayText = "'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal";
+        fasterText(displayText);
+        displayText = "";
     }
     else if(inputValue== "secret"){
         displayText = "there are a few secret commands in this terminal, see if you can find them all";
@@ -66,8 +101,11 @@ function userInput(){
         for(var n = 5; n<inputValue.length;n++){
             linkToGoTo+=inputValue.charAt(n);
         }
+        link.href = "https://"+linkToGoTo+"";
+        link.target = "_blank";
+        
         console.log(linkToGoTo);    
-        window.open(linkToGoTo,"_blank");
+        window.open(link);
     }
     else if(inputValue=="clear"){
         output.innerHTML="";
@@ -126,7 +164,10 @@ function fasterText(strValue){
 function wordBombInput(prompt){
     
     if(introMessage==true){
-        slowText("Welcome to the word bomb state, your goal is to fit the word in with the prompt given.",null);
+        document.getElementById("output").innerHTML = "";
+        var wordbombtext = "Welcome to the word bomb state, your goal is to fit the word in with the prompt given";
+        var wordBombIntro = "\r\n\u2591\u2588\u2588\u2557\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2557\u2591\u2588\u2588\u2588\u2588\u2588\u2557\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\u2003\u2003\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2557\u2591\u2588\u2588\u2588\u2557\u2591\u2591\u2591\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\r\n\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2557\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2003\u2003\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557\u2591\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\r\n\u2591\u255A\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2554\u255D\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2003\u2003\u2588\u2588\u2588\u2588\u2588\u2588\u2566\u255D\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2588\u2588\u2554\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2566\u255D\r\n\u2591\u2591\u2588\u2588\u2588\u2588\u2554\u2550\u2588\u2588\u2588\u2588\u2551\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2003\u2003\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2551\u255A\u2588\u2588\u2554\u255D\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\r\n\u2591\u2591\u255A\u2588\u2588\u2554\u255D\u2591\u255A\u2588\u2588\u2554\u255D\u2591\u255A\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2003\u2003\u2588\u2588\u2588\u2588\u2588\u2588\u2566\u255D\u255A\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551\u2591\u255A\u2550\u255D\u2591\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2566\u255D\r\n\u2591\u2591\u2591\u255A\u2550\u255D\u2591\u2591\u2591\u255A\u2550\u255D\u2591\u2591\u2591\u255A\u2550\u2550\u2550\u2550\u255D\u2591\u255A\u2550\u255D\u2591\u2591\u255A\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\u2003\u2003\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\u2591\u255A\u2550\u2550\u2550\u2550\u255D\u2591\u255A\u2550\u255D\u2591\u2591\u2591\u2591\u2591\u255A\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\nWelcome to the word bomb state, your goal is to fit the word in with the prompt given";
+        fasterText(wordBombIntro);
         introMessage = false;
         document.getElementById("userInput").value = "";
         return;
@@ -135,39 +176,23 @@ function wordBombInput(prompt){
     document.getElementById("userInput").value = "";
     var output = document.getElementById("output");
     var displayText = "";
-    console.log(randomNumber);
-    //var regex = /nothing/;
-    //var displayPrompt="";
-    // fetch('wordprompt.txt')
-    //     .then(responses => responses.text())
-    //     .then(text=>{
-    //         const promptList = text.trim().split('\n');
-    //         const prompt = promptList[randomNumber].trim();
-    //         regex = new RegExp(prompt,'i');
-    //         console.log(regex);
-    //         displayPrompt = promptList[randomNumber]+"";
-    //         //slowText(displayPrompt,null);
-    //         slowText(displayPrompt,null);
-
-    //     });
-
-    const regex = new RegExp(prompt, 'i');
     
     fetch('words.txt')
         .then(response => response.text())
         .then(text => {
             const wordList = text.trim().split('\n');
-
-            //slowText("type a word with cu in it");
-            console.log("running to see if  is tested by " + regex + "and seen in "+inputValue);
-            const matches = wordList.some(word => regex.test(word.toUpperCase()) && word.toUpperCase().includes(inputValue.toUpperCase()));
-            console.log("matches should determine if "+ regex +"matches with"+ inputValue);
-            console.log(inputValue);
-            console.log(matches);
+            const inputValueToUpperCase = inputValue.toUpperCase().trim();
+            const promptValue = prompt.trim();
+            
+            const matches = wordList.some(word => word==inputValue.toUpperCase() && inputValueToUpperCase.search(new RegExp(promptValue))!==-1);
+            
+            
             if(matches == true){
                 slowText("correct, good job!",null);
-                displayText = "correct, good job!!";
-                randomNumber = getRandomInteger(0,9);
+                //displayText = "correct, good job!!";
+                randomNumber = getRandomInteger(0,2000);
+                //slowText(getWord(randomNumber),null);
+                console.log(getWord(randomNumber));
                 incorrect = false;
             } else {
                 incorrect = true;
@@ -193,29 +218,55 @@ function getRandomInteger(min, max){
 }
 
 function generatePrompt(){
-    fetch('wordprompt.txt')
+    return fetch('wordprompt.txt')
     .then(responses => responses.text())
     .then(text=>{
         const promptList = text.trim().split('\n');
         const prompt = promptList[randomNumber].trim();
-        regex = new RegExp(prompt,'i');
-        console.log(regex);
+        regex = new RegExp("(\\b|\\W)" + prompt + "(\\b|\\W),'i'");
+        
         displayPrompt = promptList[randomNumber]+"";
         //slowText(displayPrompt,null);
         if(incorrect==false){
-            slowText(displayPrompt,null);
+            if(wordbombIntroprompt==true){
+                cache = displayPrompt;
+                setTimeout(function(){
+                    slowText(displayPrompt,null);
+                    wordbombIntroprompt = false;
+                },7000);
+            } else {
+                if(displayPrompt!=cache){
+                    setTimeout(function(){
+                        cache = displayPrompt;
+                        slowText(displayPrompt,null);
+                        
+                    },1000);
+                }
+            }
+            
+            
+            
         }
         
-        return regex;
+        return displayPrompt;
     });
 }
 
 function WordBomb(){
-    var prompt;
-    setTimeout(function(){
-        prompt = generatePrompt(); 
-    },5000);
+    
+    
+    generatePrompt().then(prompt =>{
+    
     wordBombInput(prompt);
+    }); 
+}
 
-
+function getWord(randomnum){
+    fetch('wordprompt.txt')
+        .then(response => response.text())
+        .then(text=>{
+            const promptlist = text.trim().split('\n');
+            const retValue = promptlist[randomnum];
+            return retValue;
+        });
 }
