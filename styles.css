@@ -1,0 +1,39 @@
+body{
+    background-color: black;
+    color:white;
+    font-family:monospace;
+    font-size: large;
+}
+
+.output{
+    color:white;
+}
+
+.introduction{
+    color:white;
+}
+
+#userInput{
+    border:none;
+    outline: none;
+    background:transparent;
+    caret-color: white;
+    color: white;
+    
+}
+
+.terminal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: monospace;
+    color: white;
+    background-color: black;
+    padding:10;
+    box-sizing: border-box;
+}
+
+.prompt{
+    margin-right: 10px;
+    color:greenyellow;
+}
