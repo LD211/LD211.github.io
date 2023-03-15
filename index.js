@@ -5,6 +5,7 @@ var randomNumber = getRandomInteger(0,2000);
 var prompt;
 var wordbombIntroprompt = true;
 var cache = "";
+var wordBombCount = 0;
 function introduction(){
     const hello = "\r\n\u2588\u2588\u2557\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\r\n\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\nFor a list of commands, type 'commands'";
     const asciiArt = "For a list of commands, type 'commands'\n";
@@ -69,7 +70,7 @@ function userInput(){
         .then(response => response.json())
         .then(data => {
             dataString = JSON.stringify(data);
-            console.log(dataString);
+            
             slowText(dataString);
         })
         .catch(error => console.error(error));
@@ -80,15 +81,15 @@ function userInput(){
         .then(response => response.json())
         .then(data => {
             dataString = JSON.stringify(data);
-            console.log(dataString);
+            
             slowText(dataString);
-            console.log("hello");
+            
         })
         .catch(error => console.error(error));
 
     }
     else if(inputValue=="commands"){
-        displayText = "'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal";
+        displayText = "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal";
         fasterText(displayText);
         displayText = "";
     }
@@ -104,7 +105,7 @@ function userInput(){
         link.href = "https://"+linkToGoTo+"";
         link.target = "_blank";
         
-        console.log(linkToGoTo);    
+          
         window.open(link);
     }
     else if(inputValue=="clear"){
@@ -192,8 +193,13 @@ function wordBombInput(prompt){
                 //displayText = "correct, good job!!";
                 randomNumber = getRandomInteger(0,2000);
                 //slowText(getWord(randomNumber),null);
-                console.log(getWord(randomNumber));
+                wordBombCount++;
+                if(wordBombCount==9){
+                    wordBombCount = 0;
+                    document.getElementById("output").innerHTML = "";
+                }
                 incorrect = false;
+                WordBomb();
             } else {
                 incorrect = true;
             }
