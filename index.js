@@ -189,10 +189,12 @@ function wordBombInput(prompt){
             
             
             if(matches == true){
+                document.getElementById("output").innerHTML = "";
                 slowText("correct, good job!",null);
                 //displayText = "correct, good job!!";
                 randomNumber = getRandomInteger(0,2000);
                 //slowText(getWord(randomNumber),null);
+                
                 wordBombCount++;
                 if(wordBombCount==9){
                     wordBombCount = 0;
@@ -205,7 +207,29 @@ function wordBombInput(prompt){
             }
         
     });
+    if(inputValue.search(new RegExp("!solve"))!==-1){
+        const prompt = inputValue.split(' ');
+        
+        fetch('words.txt')
+            .then(response => response.text())
+            .then(text =>{
+                const wordSolution = text.trim().split('\n');
+                
+                const solution = wordSolution.find(word => word.search(new RegExp(prompt[1].toUpperCase()))!==-1);
+                console.log(solution);
+                if(solution){
+                    displayText = "the answer is " + solution;
+                    slowText(displayText);
+                } else {
+                    displayText = "Word cannot be found";
+                }
+            });
 
+
+
+        
+
+    }
     if(inputValue=="clear"){
         output.innerHTML="";
     }
