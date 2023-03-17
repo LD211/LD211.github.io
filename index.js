@@ -1,7 +1,8 @@
 var introMessage = true;
 var wordbombTicker = false;
 var incorrect = false;
-var randomNumber = getRandomInteger(0,2000);
+var maxInteger = 2000;
+var randomNumber = getRandomInteger(0,maxInteger);
 var prompt;
 var wordbombIntroprompt = true;
 var cache = "";
@@ -88,8 +89,15 @@ function userInput(){
         .catch(error => console.error(error));
 
     }
+    else if(inputValue.search(new RegExp("background"))!==-1){
+        const bckgrnd = inputValue.split(' ');
+        if(bckgrnd[1]=="matrixrain"){
+            console.log("hello");
+            document.body.style.backgroundImage = "url('matrixrain.gif')";
+        }
+    }
     else if(inputValue=="commands"){
-        displayText = "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal";
+        displayText = "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
         fasterText(displayText);
         displayText = "";
     }
@@ -192,7 +200,7 @@ function wordBombInput(prompt){
                 document.getElementById("output").innerHTML = "";
                 slowText("correct, good job!",null);
                 //displayText = "correct, good job!!";
-                randomNumber = getRandomInteger(0,2000);
+                randomNumber = getRandomInteger(0,maxInteger);
                 //slowText(getWord(randomNumber),null);
                 
                 wordBombCount++;
@@ -229,6 +237,13 @@ function wordBombInput(prompt){
 
         
 
+    }
+    if(inputValue.search(new RegExp("!set"))!==-1){
+        const setter = inputValue.split(' ');
+        if(setter[1] > 8522){
+            setter[1] = 8522;
+        }
+        maxInteger = setter[1];
     }
     if(inputValue=="clear"){
         output.innerHTML="";
