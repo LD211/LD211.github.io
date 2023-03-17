@@ -227,9 +227,10 @@ function wordBombInput(prompt){
                 console.log(solution);
                 if(solution){
                     displayText = "the answer is " + solution;
-                    slowText(displayText);
+                    slowText(displayText,null);
                 } else {
                     displayText = "Word cannot be found";
+                    slowText(displayText,null);
                 }
             });
 
@@ -244,6 +245,30 @@ function wordBombInput(prompt){
             setter[1] = 8522;
         }
         maxInteger = setter[1];
+    }
+    if(inputValue.search(new RegExp("!longest"))!==-1){
+        const promptLongest = inputValue.split(' ');
+        fetch('words.txt')
+            .then(response => response.text())
+            .then(text =>{
+                const longestSolution = text.trim().split('\n');
+                const longestAnswer = [];
+                longestSolution.forEach(element => {
+                    if(element.search(new RegExp(promptLongest[1].toUpperCase()))!==-1){
+                        longestAnswer.push(element);
+                    }
+                });
+                var answer = "";
+                
+                longestAnswer.forEach(solution =>{
+                     if(solution.length>answer.length){
+                        answer = solution;
+                     }
+                });
+                
+                displayText = answer;
+                slowText(displayText)
+            })
     }
     if(inputValue=="clear"){
         output.innerHTML="";
