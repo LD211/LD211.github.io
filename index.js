@@ -95,6 +95,17 @@ function userInput(){
             console.log("hello");
             document.body.style.backgroundImage = "url('matrixrain.gif')";
         }
+        else if(bckgrnd[1]=="gold"){
+            output.innerHTML = "";
+            var audio = new Audio('yeat.mp3');
+            audio.volume = .1;
+            audio.play();
+            document.body.style.backgroundImage = "url('goldcoindim.png')";
+            const ascii = document.getElementById("ascii").innerHTML;
+            document.getElementById("ascii").classList.add("visible");
+            
+            
+        }
     }
     else if(inputValue=="commands"){
         displayText = "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
@@ -131,6 +142,7 @@ function slowText(strValue, link){//function to display text slowly, kinda like 
     
     var interval = setInterval(() =>{
         if(j < strValue.length){
+           
             if(strValue.charAt(j)==='\n'){
                 output.innerHTML+="<br>";
                 j++;

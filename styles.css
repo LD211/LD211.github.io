@@ -13,6 +13,14 @@ body{
     z-index: -1;
     
 }
+.hidden{
+    display: none;
+    color: gold;
+}
+
+.hidden.visible{
+    display:block;
+}
 
 body::before{
     background-image: url('background.jpg');
