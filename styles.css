@@ -22,6 +22,35 @@ body{
     display:block;
 }
 
+#userInput{
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+#terminal{
+    font-size:large;
+    font-family:monospace;
+    cursor: text;
+    display: inline-block;
+    content: '';
+}
+
+.caret{
+    animation: cursor 1s infinite;
+    color: white;
+}
+
+@keyframes cursor {
+    from{
+        opacity: 1;
+    }
+    to {
+        opacity:0;
+    }
+}
+
 body::before{
     background-image: url('background.jpg');
     background-size: cover;

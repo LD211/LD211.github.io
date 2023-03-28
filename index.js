@@ -7,6 +7,14 @@ var prompt;
 var wordbombIntroprompt = true;
 var cache = "";
 var wordBombCount = 0;
+const originalInput = document.getElementById("userInput");
+const customInput = document.createElement('div');
+customInput.className = 'custom-input';
+customInput.innerText = document.getElementById("userInput");
+//originalInput.insertAdjacentElement('afterend',customInput);
+const cursor = document.createElement('div');
+cursor.className = 'cursor';
+customInput.appendChild(cursor);
 function introduction(){
     const hello = "\r\n\u2588\u2588\u2557\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2591\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2551\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2551\u2591\u2591\u2588\u2588\u2551\r\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\r\n\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2550\u255D\u2591\nFor a list of commands, type 'commands'";
     const asciiArt = "For a list of commands, type 'commands'\n";
@@ -16,10 +24,19 @@ function introduction(){
 }
 introduction();
 
-
+window.addEventListener('click', () =>{
+    document.getElementById("userInput").focus();
+});
 function inputs(){document.addEventListener("DOMContentLoaded",function(){
+    document.getElementById("userInput").addEventListener('input', ()=>{
+        document.getElementById("terminal").innerText = document.getElementById("userInput").value;
+    });
+        console.log("hello");
+    
     var consoleInput = document.getElementById("userInput");
+    const terminal = document.getElementById('terminal');
     consoleInput.addEventListener("keydown", e =>{
+        
         if(e.key==="Enter"){
             if(document.getElementById("userInput".value=="wordbomb")||document.getElementById("userInput").value=="word bomb"||wordbombTicker==true){
                 wordbombTicker=true;
@@ -36,6 +53,7 @@ function userInput(){
     var inputValue = document.getElementById("userInput").value;
     
     document.getElementById("userInput").value = "";
+    document.getElementById("terminal").innerText = "";
     var output = document.getElementById("output");
     var displayText = "";
     var link = document.createElement("a");
@@ -183,7 +201,7 @@ function fasterText(strValue){
 
 
 function wordBombInput(prompt){
-    
+    document.getElementById("terminal").innerText = "";
     if(introMessage==true){
         document.getElementById("output").innerHTML = "";
         var wordbombtext = "Welcome to the word bomb state, your goal is to fit the word in with the prompt given";
