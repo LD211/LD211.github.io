@@ -24,6 +24,10 @@ function introduction(){
 }
 introduction();
 
+window.addEventListener('touchstart',() =>{
+    document.getElementById("userInput").focus();
+});
+
 window.addEventListener('click', () =>{
     document.getElementById("userInput").focus();
 });
@@ -31,7 +35,7 @@ function inputs(){document.addEventListener("DOMContentLoaded",function(){
     document.getElementById("userInput").addEventListener('input', ()=>{
         document.getElementById("terminal").innerText = document.getElementById("userInput").value;
     });
-        console.log("hello");
+        
     
     var consoleInput = document.getElementById("userInput");
     const terminal = document.getElementById('terminal');
@@ -110,7 +114,7 @@ function userInput(){
     else if(inputValue.search(new RegExp("background"))!==-1){
         const bckgrnd = inputValue.split(' ');
         if(bckgrnd[1]=="matrixrain"){
-            console.log("hello");
+           
             document.body.style.backgroundImage = "url('matrixrain.gif')";
         }
         else if(bckgrnd[1]=="gold"){
@@ -254,7 +258,7 @@ function wordBombInput(prompt){
                 const wordSolution = text.trim().split('\n');
                 
                 const solution = wordSolution.find(word => word.search(new RegExp(prompt[1].toUpperCase()))!==-1);
-                console.log(solution);
+                
                 if(solution){
                     displayText = "the answer is " + solution;
                     slowText(displayText,null);
