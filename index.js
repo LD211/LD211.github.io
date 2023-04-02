@@ -9,6 +9,11 @@ var cache = "";
 var wordBombCount = 0;
 const originalInput = document.getElementById("userInput");
 const customInput = document.createElement('div');
+const audioContext = new AudioContext();
+const oscillator = audioContext.createOscillator();
+oscillator.type = "sawtooth";
+let frequency = 440;
+oscillator.connect(audioContext.destination);
 customInput.className = 'custom-input';
 customInput.innerText = document.getElementById("userInput");
 //originalInput.insertAdjacentElement('afterend',customInput);
@@ -34,6 +39,7 @@ window.addEventListener('click', () =>{
 function inputs(){document.addEventListener("DOMContentLoaded",function(){
     document.getElementById("userInput").addEventListener('input', ()=>{
         document.getElementById("terminal").innerText = document.getElementById("userInput").value;
+        if(wordbombTicker)soundPlay();
     });
         
     
@@ -232,7 +238,7 @@ function wordBombInput(prompt){
             
             if(matches == true){
                 document.getElementById("output").innerHTML = "";
-                slowText("correct, good job!",null);
+                fasterText("correct, good job!");
                 //displayText = "correct, good job!!";
                 randomNumber = getRandomInteger(0,maxInteger);
                 //slowText(getWord(randomNumber),null);
@@ -344,7 +350,7 @@ function generatePrompt(){
                         cache = displayPrompt;
                         slowText(displayPrompt,null);
                         
-                    },1000);
+                    },500);
                 }
             }
             
@@ -373,4 +379,9 @@ function getWord(randomnum){
             const retValue = promptlist[randomnum];
             return retValue;
         });
+}
+
+function soundPlay(){
+    const audioNew = new Audio('hitmarker.mp3');
+    audioNew.play();
 }
