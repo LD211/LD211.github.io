@@ -1,4 +1,5 @@
 var introMessage = true;
+var intervalId = 5;
 var wordbombTicker = false;
 var incorrect = false;
 var maxInteger = 2000;
@@ -65,7 +66,6 @@ function inputs() {
 inputs();
 function userInput() {
   var inputValue = document.getElementById("userInput").value;
-
   document.getElementById("userInput").value = "";
   document.getElementById("terminal").innerText = "";
   var output = document.getElementById("output");
@@ -155,15 +155,20 @@ function userInput() {
     output.innerHTML = "";
     displayText = "terminal cleared.";
   } else {
+    noText();
     displayText = "Unknown command, please type a command in 'commands'";
   }
   //now going to display the text slowly
   slowText(displayText, link);
 }
 
-function slowText(strValue, link) { //function to display text slowly, kinda like a cool terminal like chatgpt
-  var j = 0;
+function noText() {
+  clearInterval(intervalId);
+}
 
+function slowText(strValue, link) { //function to display text slowly, kinda like a cool terminal like chatgpt
+  let j = 0;
+  if (strValue.length === 0) return;
   var interval = setInterval(() => {
     if (j < strValue.length) {
       if (strValue.charAt(j) === "\n") {
@@ -174,16 +179,18 @@ function slowText(strValue, link) { //function to display text slowly, kinda lik
         j++;
       }
     } else {
-      clearInterval(interval);
+      clearInterval(intervalId);
       if (link != null) {
         output.appendChild(link);
       }
     }
   }, 50);
+  intervalId = interval;
   if (strValue != "") output.innerHTML += "<br><br>";
 }
 
 function fasterText(strValue) {
+  if (strValue.length === 0) return;
   var j = 0;
   var interval = setInterval(() => {
     if (j < strValue.length) {
@@ -195,13 +202,15 @@ function fasterText(strValue) {
         j++;
       }
     } else {
-      clearInterval(interval);
+      clearInterval(intervalId);
       output.innerHTML += "<br><br>";
     }
   }, 10);
+  intervalId = interval;
 }
 
 function wordBombInput(prompt) {
+  noText();
   document.getElementById("terminal").innerText = "";
   if (introMessage == true) {
     document.getElementById("output").innerHTML = "";
@@ -214,6 +223,7 @@ function wordBombInput(prompt) {
     document.getElementById("userInput").value = "";
     return;
   }
+
   var inputValue = document.getElementById("userInput").value;
   document.getElementById("userInput").value = "";
   var output = document.getElementById("output");
@@ -233,7 +243,9 @@ function wordBombInput(prompt) {
 
       if (matches == true) {
         document.getElementById("output").innerHTML = "";
-        fasterText("correct, good job!");
+        displayText = "correct, good job!";
+        fasterText(displayText);
+
         //displayText = "correct, good job!!";
         randomNumber = getRandomInteger(0, maxInteger);
         //slowText(getWord(randomNumber),null);
@@ -301,6 +313,26 @@ function wordBombInput(prompt) {
 
         displayText = answer;
         slowText(displayText);
+      });
+  }
+  if (inputValue.search(new RegExp("!list")) !== -1) {
+    const promptLongest = inputValue.split(" ");
+    fetch("words.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        const theList = text.trim().split("\n");
+        const theArrayList = [];
+        theList.forEach((element) => {
+          if (
+            element.search(new RegExp(promptLongest[1].toUpperCase())) !== -1
+          ) {
+            theArrayList.push(element);
+          }
+        });
+        theArrayList.sort((a, b) => {
+          return b.length - a.length;
+        });
+        fasterText(theArrayList.toString());
       });
   }
   if (inputValue.search(new RegExp("!define")) !== -1) {
