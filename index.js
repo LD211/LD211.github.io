@@ -332,7 +332,11 @@ function wordBombInput(prompt) {
         theArrayList.sort((a, b) => {
           return b.length - a.length;
         });
-        fasterText(theArrayList.toString());
+
+        fasterText(
+          "\n" + theArrayList.length + " solutions " +
+            theArrayList.toString().replaceAll(/,/g, " "),
+        );
       });
   }
   if (inputValue.search(new RegExp("!define")) !== -1) {
