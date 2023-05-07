@@ -1,5 +1,5 @@
 body{
-    background-image: url('background.jpg');
+    background-image: url('melting.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -42,14 +42,42 @@ body{
     color: white;
 }
 
-@keyframes cursor {
-    from{
-        opacity: 1;
-    }
-    to {
-        opacity:0;
-    }
+.bracket1{
+    color:red;
+    display:inline;
 }
+
+.bracket2{
+    color:red;
+    display:inline;
+}
+
+.at{
+    color:##548143;
+    display:inline;
+}
+
+.LDTerminal{
+    color:#455e8a;
+    display:inline;
+}
+
+.filepth{
+    color:#9966cc;
+    display:inline;
+}
+
+.moneysign{
+    color:white;
+    display:inline;
+}
+
+.user{
+    color:gold;
+    display:inline;
+}
+
+
 
 body::before{
     background-image: url('background.jpg');
@@ -73,13 +101,15 @@ body::before{
     color:white;
 }
 
+.caret{
+    color:#f1c232;
+}
 
 
 #userInput{
     border:none;
     outline: none;
     background:transparent;
-    caret-color: white;
     color: white;
     
 }
