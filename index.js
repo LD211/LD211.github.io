@@ -44,7 +44,6 @@ function inputs() {
       document.getElementById("terminal").innerText =
         document.getElementById("userInput").value;
     });
-
     var consoleInput = document.getElementById("userInput");
     const terminal = document.getElementById("terminal");
     consoleInput.addEventListener("keydown", (e) => {
@@ -54,6 +53,7 @@ function inputs() {
           document.getElementById("userInput").value == "word bomb" ||
           wordbombTicker == true
         ) {
+          DCL("wordbomb");
           wordbombTicker = true;
           WordBomb();
         } else {
@@ -74,26 +74,32 @@ function userInput() {
 
   //now entering cases for the terminal
   if (inputValue == "instagram") {
+    DCL("instagram");
+    console.log("what");
     displayText = "my instagram account: ";
     link.href = "https://instagram.com/LD";
     link.target = "_blank";
     link.innerHTML = "@ld";
   } else if (inputValue == "twitter") {
+    DCL("twitter");
     displayText = "my twitter account: ";
     link.href = "https://twitter.com/untitled";
     link.target = "_blank";
     link.innerHTML = "@untitled";
   } else if (inputValue == "twitch") {
+    DCL("twitch");
     displayText = "my twitch account: ";
     link.href = "https://twitch.tv/void";
     link.target = "_blank";
     link.innerHTML = "@void";
   } else if (inputValue == "monkeytype") {
+    DCL("monkeytype");
     displayText = "my monkeytype account: ";
     link.href = "https://monkeytype.com/profile/ld_";
     link.target = "_blank";
     link.innerHTML = "@LD_";
   } else if (inputValue == "btc") {
+    DCL("btc");
     var dataString = "";
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
@@ -106,6 +112,7 @@ function userInput() {
       })
       .catch((error) => console.error(error));
   } else if (inputValue == "xrp") {
+    DCL("xrp");
     var dataString = "";
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd",
@@ -118,6 +125,7 @@ function userInput() {
       })
       .catch((error) => console.error(error));
   } else if (inputValue.search(new RegExp("background")) !== -1) {
+    DCL("background");
     const bckgrnd = inputValue.split(" ");
     if (bckgrnd[1] == "matrixrain") {
       document.body.style.backgroundImage = "url('matrixrain.gif')";
@@ -131,17 +139,20 @@ function userInput() {
       document.getElementById("ascii").classList.add("visible");
     }
   } else if (inputValue == "commands") {
+    DCL("commands");
     displayText =
       "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
     fasterText(displayText);
     displayText = "";
   } else if (inputValue == "secret") {
+    DCL("secret");
     displayText =
       "there are a few secret commands in this terminal, see if you can find them all";
   } else if (
     inputValue.charAt(0) == "g" && inputValue.charAt(1) == "o" &&
     inputValue.charAt(2) == "t" && inputValue.charAt(3) == "o"
   ) {
+    DCL("goto");
     displayText = "You should be redirected to the intended website.";
     var linkToGoTo = "";
     for (var n = 5; n < inputValue.length; n++) {
@@ -152,6 +163,7 @@ function userInput() {
 
     window.open(link);
   } else if (inputValue == "clear") {
+    DCL("clear");
     output.innerHTML = "";
     displayText = "terminal cleared.";
   } else {
@@ -164,6 +176,10 @@ function userInput() {
 
 function noText() {
   clearInterval(intervalId);
+}
+
+function DCL(textadded) {
+  document.querySelector(".userpath").textContent = textadded;
 }
 
 function slowText(strValue, link) { //function to display text slowly, kinda like a cool terminal like chatgpt

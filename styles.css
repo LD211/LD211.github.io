@@ -22,6 +22,11 @@ body{
     display:block;
 }
 
+.userpath{
+    color:#9966cc;
+    display:inline;
+}
+
 #userInput{
   position: absolute;
   top: -9999px;
@@ -53,7 +58,7 @@ body{
 }
 
 .at{
-    color:##548143;
+    color:#548143;
     display:inline;
 }
 
