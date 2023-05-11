@@ -503,9 +503,9 @@ async function generateWordle() {
   return await fetch("wordle.txt")
     .then((response) => response.text())
     .then((text) => {
-      const wordleList = text.trim().split("\r\n");
+      const wordleList = text.trim().split("\n");
       let wordleNumber = getRandomInteger(0, wordleList.length);
-      return wordleList[wordleNumber];
+      return wordleList[wordleNumber].trim();
     });
 }
 
