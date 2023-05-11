@@ -500,6 +500,7 @@ function wordlecontains(characterInput, answerWordle) {
 }
 
 async function generateWordle() {
+  DCL("wordle");
   return await fetch("wordle.txt")
     .then((response) => response.text())
     .then((text) => {
