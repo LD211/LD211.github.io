@@ -27,6 +27,14 @@ body{
     display:inline;
 }
 
+.green{
+    color:green;
+}
+
+.yellow{
+    color:yellow;
+}
+
 #userInput{
   position: absolute;
   top: -9999px;

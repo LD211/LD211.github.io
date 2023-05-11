@@ -1,6 +1,10 @@
 var introMessage = true;
+let startwordle = false;
+let wordleanswer = "";
+let wordleCount = 0;
 var intervalId = 5;
 var wordbombTicker = false;
+var wordleTicker = false;
 var incorrect = false;
 var maxInteger = 2000;
 var randomNumber = getRandomInteger(0, maxInteger);
@@ -56,6 +60,13 @@ function inputs() {
           DCL("wordbomb");
           wordbombTicker = true;
           WordBomb();
+        } else if (
+          document.getElementById("userInput").value.toUpperCase() ==
+            "WORDLE" || wordleTicker === true
+        ) {
+          console.log("hello");
+          wordleTicker = true;
+          wordle();
         } else {
           userInput();
         }
@@ -428,4 +439,86 @@ function getWord(randomnum) {
       const retValue = promptlist[randomnum];
       return retValue;
     });
+}
+
+async function wordle() {
+  if (startwordle === false) {
+    wordleanswer = await generateWordle();
+    startwordle = true;
+  }
+  var validWordle = false;
+  let wordleInput = document.getElementById("userInput").value;
+  document.getElementById("terminal").innerText = "";
+  document.getElementById("userInput").value = "";
+  let realtext;
+  if (wordleInput.length != 5) {
+    output.innerHTML += "<br>";
+    fasterText("you must type a word containing exactly 5 characters");
+    return;
+  }
+  fetch("wordle.txt")
+    .then((response) => response.text())
+    .then((text) => {
+      const wordleList = text.trim().split("\r\n");
+      realtext = wordleList[38];
+      console.log(wordleList[38] + " length:" + wordleList[38].length);
+      const alidWordle = wordleList.some((wordlerd) =>
+        wordleInput.toLowerCase() == wordlerd.toLowerCase()
+      );
+      if (alidWordle) {
+        console.log("yes");
+        let wordleAnswer = "";
+        for (let i = 0; i < wordleInput.length; i++) {
+          if (wordleInput[i] == wordleanswer[i]) {
+            console.log("green bitch");
+            wordleAnswer += correctChar(wordleInput[i]);
+          } else if (wordlecontains(wordleInput[i], wordleanswer)) {
+            wordleAnswer += semicorrectChar(wordleInput[i]);
+          } else {
+            console.log(wordleInput[i] + "is not equal to " + wordleanswer[i]);
+            wordleAnswer += wordleInput[i];
+          }
+        }
+        output.innerHTML += "<br>" + wordleAnswer;
+        wordleCount++;
+        if (wordleanswer === wordleInput) {
+          slowText("nice job! solved in " + wordleCount + " attempts");
+          wordleTicker = false;
+        }
+      } else {
+        output.innerHTML += "<br>";
+        fasterText(
+          wordleInput + " is not a valid word.",
+        );
+        return;
+      }
+    });
+}
+
+function wordlecontains(characterInput, answerWordle) {
+  for (let i = 0; i < answerWordle.length; i++) {
+    if (characterInput == answerWordle[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function generateWordle() {
+  return await fetch("wordle.txt")
+    .then((response) => response.text())
+    .then((text) => {
+      const wordleList = text.trim().split("\r\n");
+      let wordleNumber = getRandomInteger(0, wordleList.length);
+      console.log("wordle list : " + wordleList[wordleNumber]);
+      return wordleList[wordleNumber];
+    });
+}
+
+function correctChar(character) {
+  return "<span class='green'>" + character + "</span>";
+}
+
+function semicorrectChar(character) {
+  return "<span class='yellow'>" + character + "</span>";
 }
