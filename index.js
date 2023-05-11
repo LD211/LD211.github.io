@@ -458,10 +458,10 @@ async function wordle() {
   fetch("wordle.txt")
     .then((response) => response.text())
     .then((text) => {
-      const wordleList = text.trim().split("\r\n");
+      const wordleList = text.trim().split("\n");
       realtext = wordleList[38];
       const alidWordle = wordleList.some((wordlerd) =>
-        wordleInput.toLowerCase() == wordlerd.toLowerCase()
+        wordleInput.trim().toLowerCase() == wordlerd.trim().toLowerCase()
       );
       if (alidWordle) {
         let wordleAnswer = "";
