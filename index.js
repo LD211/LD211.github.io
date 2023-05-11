@@ -64,7 +64,6 @@ function inputs() {
           document.getElementById("userInput").value.toUpperCase() ==
             "WORDLE" || wordleTicker === true
         ) {
-          console.log("hello");
           wordleTicker = true;
           wordle();
         } else {
@@ -506,7 +505,6 @@ async function generateWordle() {
     .then((text) => {
       const wordleList = text.trim().split("\r\n");
       let wordleNumber = getRandomInteger(0, wordleList.length);
-      console.log("wordle list : " + wordleList[wordleNumber]);
       return wordleList[wordleNumber];
     });
 }
