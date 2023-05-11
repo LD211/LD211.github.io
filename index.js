@@ -461,21 +461,17 @@ async function wordle() {
     .then((text) => {
       const wordleList = text.trim().split("\r\n");
       realtext = wordleList[38];
-      console.log(wordleList[38] + " length:" + wordleList[38].length);
       const alidWordle = wordleList.some((wordlerd) =>
         wordleInput.toLowerCase() == wordlerd.toLowerCase()
       );
       if (alidWordle) {
-        console.log("yes");
         let wordleAnswer = "";
         for (let i = 0; i < wordleInput.length; i++) {
           if (wordleInput[i] == wordleanswer[i]) {
-            console.log("green bitch");
             wordleAnswer += correctChar(wordleInput[i]);
           } else if (wordlecontains(wordleInput[i], wordleanswer)) {
             wordleAnswer += semicorrectChar(wordleInput[i]);
           } else {
-            console.log(wordleInput[i] + "is not equal to " + wordleanswer[i]);
             wordleAnswer += wordleInput[i];
           }
         }
