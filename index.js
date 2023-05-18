@@ -151,7 +151,7 @@ function userInput() {
   } else if (inputValue == "commands") {
     DCL("commands");
     displayText =
-      "\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
+      "\n'typehero': play my typehero game\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\n'twitch': displays twitch profile\n'xrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
     fasterText(displayText);
     displayText = "";
   } else if (inputValue == "secret") {
@@ -176,6 +176,8 @@ function userInput() {
     DCL("clear");
     output.innerHTML = "";
     displayText = "terminal cleared.";
+  } else if (inputValue.toLowerCase() == "typehero") {
+    window.open("https://LD211.github.io/typehero");
   } else {
     noText();
     displayText = "Unknown command, please type a command in 'commands'";
