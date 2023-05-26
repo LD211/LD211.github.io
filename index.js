@@ -147,7 +147,7 @@ function userInput() {
   } else if (inputValue == "commands") {
     DCL("commands");
     displayText =
-      "\n'typehero': play my typehero game\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\nxrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
+      "\n'typehero': play my typehero game\n'vim': open my version of vim on the browser\n'instagram': displays instagram\n'twitter': displays twitter\n'secret': unknown\n'goto': type goto examplewebsite.com to enter a new website\n'word bomb': play word bomb\n'monkeytype': displays monkeytype profile\nxrp': display xrp price\n'btc': display btc price\n'clear': clears the terminal\n'background ____': changes background, options: 'matrixrain'";
     fasterText(displayText);
     displayText = "";
   } else if (inputValue == "secret") {
