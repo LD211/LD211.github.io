@@ -106,7 +106,7 @@ function userInput() {
     link.innerHTML = "@LD_";
   } else if (inputValue == "vim") {
     DCL("vim");
-    window.open("https://LD211.github.io/vim");
+    window.open("https://LD211.github.io/jim");
   } else if (inputValue == "btc") {
     DCL("btc");
     var dataString = "";
