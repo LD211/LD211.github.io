@@ -104,6 +104,9 @@ function userInput() {
     link.href = "https://monkeytype.com/profile/ld_";
     link.target = "_blank";
     link.innerHTML = "@LD_";
+  } else if (inputValue == "vim") {
+    DCL("vim");
+    window.open("https://LD211.github.io/vim");
   } else if (inputValue == "btc") {
     DCL("btc");
     var dataString = "";
