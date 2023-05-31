@@ -6,7 +6,7 @@ body{
     background-color: rgb(0, 0, .5) !important;
     position:relative;
     color:white;
-    font-family:"iosevka";
+    font-family:"spleen";
     font-size: large;
     color: rgb(255, 255, 255);
     height: 100vh;
@@ -44,7 +44,7 @@ body{
 }
 #terminal{
     font-size:large;
-    font-family:"iosevka";
+    font-family:"spleen";
     cursor: text;
     display: inline-block;
     content: '';
@@ -132,7 +132,7 @@ body::before{
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: "iosevka";
+    font-family: "spleen";
     color: white;
     background-color: rgba(0, 0, 0, 0);
     padding:10;
@@ -159,4 +159,9 @@ body::before{
 @font-face {
     font-family: "iosevka";
     src: url('./fonts/iosevka.ttf');
+}
+
+@font-face {
+    font-family: "spleen";
+    src: url('./fonts/spleen.otf');
 }
